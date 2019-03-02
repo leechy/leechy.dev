@@ -1,3 +1,5 @@
-<p>
-  articles-list works!
-</p>
+<article *ngFor="let article of articles">
+  <h2><a [href]="'/' + article.id">{{ article.name }}</a></h2>
+  <div class="date">{{ article.date | date:'longDate' }}</div>
+  <div [innerHTML]="article.lead"></div>
+</article>
