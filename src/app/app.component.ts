@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { combineLatest, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   authSubscription: Subscription;
+  currentYear = new Date().getFullYear();
 
   constructor(private authService: AuthService) {}
 

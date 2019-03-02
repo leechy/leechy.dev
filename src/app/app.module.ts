@@ -10,9 +10,10 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ArticlesListComponent } from './components/articles-list/articles-list.component';
+import { ArticleComponent } from './components/article/article.component';
 
 @NgModule({
-  declarations: [AppComponent, ArticlesListComponent],
+  declarations: [AppComponent, ArticlesListComponent, ArticleComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
