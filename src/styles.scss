@@ -1,1 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+
+html {
+  background-color: #ccc;
+  font: 400 16px/18px 'IBM Plex Sans', sans-serif;
+}
+
+a {
+  color: #06a;
+
+  &:visited {
+    color: #30a;
+  }
+  &:active {
+    color: #a03;
+  }
+}
+
+h1 {
+  margin: 1rem 0 0.5rem;
+  font: 700 4rem/4.6rem 'IBM Plex Serif', serif;
+}
+
+h2 {
+  margin: 2rem 0 0.5rem;
+  font: 700 1.8rem/2.2rem 'IBM Plex Serif', serif;
+}
