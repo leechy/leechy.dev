@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ArticlesService } from 'src/app/services/articles.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './articles-list.component.html',
   styleUrls: ['./articles-list.component.scss']
 })
-export class ArticlesListComponent implements OnInit {
+export class ArticlesListComponent implements OnInit, OnDestroy {
   articles = [];
   articlesSubscription: Subscription;
 
@@ -22,5 +22,11 @@ export class ArticlesListComponent implements OnInit {
         console.log('articles', this.articles);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.articlesSubscription) {
+      this.articlesSubscription.unsubscribe();
+    }
   }
 }

@@ -1,5 +1,7 @@
+<h1 class="home-title">Index Of /</h1>
+
 <article *ngFor="let article of articles">
-  <h2><a [href]="'/' + article.id">{{ article.name }}</a></h2>
+  <h2><a [routerLink]="['/', article.id]">{{ article.name }}</a></h2>
   <div class="date">{{ article.date | date:'longDate' }}</div>
   <div [innerHTML]="article.lead"></div>
 </article>
