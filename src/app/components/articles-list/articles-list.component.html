@@ -1,4 +1,5 @@
 <h1 class="home-title">Index Of /</h1>
+<h2 class="home-subtitle"><a [routerLink]="['/whoami']"><img class="avatar" src="/assets/leechy.png"> Leechy</a>'s thougts</h2>
 
 <article *ngFor="let article of articles">
   <h2><a [routerLink]="['/', article.id]">{{ article.name }}</a></h2>
