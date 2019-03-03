@@ -2,6 +2,8 @@
 
 # compiled output
 /dist
+/functions/dist
+/public
 /tmp
 /out-tsc
 # Only exists if Bazel was run
@@ -9,6 +11,9 @@
 
 # dependencies
 /node_modules
+
+# settings
+/src/environments
 
 # profiling files
 chrome-profiler-events.json
@@ -40,6 +45,7 @@ npm-debug.log
 yarn-error.log
 testem.log
 /typings
+.firebase
 
 # System Files
 .DS_Store
