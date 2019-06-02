@@ -1,0 +1,15 @@
+{
+	"background_color": "#cccccc",
+	"theme_color": "#999999",
+	"name": "Leechy.dev",
+	"short_name": "Leechy.dev",
+	"display": "minimal-ui",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "leechy-icon.png",
+			"sizes": "487x461",
+			"type": "image/png"
+		}
+	]
+}

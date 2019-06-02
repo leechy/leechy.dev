@@ -1,0 +1,8 @@
+.DS_Store
+node_modules
+public/bundle.*
+__sapper__
+.firebase
+.firebaserc
+firebase-debug.log
+firebase-config.js
