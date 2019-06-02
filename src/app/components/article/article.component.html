@@ -1,0 +1,9 @@
+<div class="site-title"><a [routerLink]="['/']">Index Of /</a></div>
+
+<h1>{{ article?.name }}</h1>
+<div class="date">
+  {{ article?.date | date:'longDate' }}
+  <a [routerLink]="['/whoami']"><img class="avatar" src="/assets/leechy.png"> Leechy</a>
+</div>
+
+<div [innerHTML]="article?.body"></div>
