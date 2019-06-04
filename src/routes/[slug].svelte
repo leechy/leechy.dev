@@ -1,28 +1,17 @@
 <script context="module">
 export async function preload({ params, query }) {
-  return firestore
-    .collection("articles")
-    .doc(params.slug)
-    .get()
-    .then(doc => {
-      if (doc.exists) {
-        return {
-          article: { id: doc.id, ...doc.data() },
-          slug: params.slug
-        };
-      } else {
-        this.error('404', 'Not found');
-      }
-    })
-    .catch(err => {
-      this.error(err.status, err.message);
+  return this.fetch(getFirestoreRequestUrl('articles', params.slug)).then(res => res.json())
+    .then(res => {
+      return { article: parseFirestoreResults([res])[0] }
+    }).catch(err => {
+      throw error(err.status, err.message);
     });
 }
 </script>
 
 <script>
 import { onMount, onDestroy } from 'svelte';
-import { firestore } from '../firebase.js';
+import { getFirestoreRequestUrl, parseFirestoreResults } from '../firebase.js';
 import articlesStore from '../articles-store.js';
 
 import { formatDate } from '../utilities.js';
@@ -31,7 +20,7 @@ import TopNav from '../components/TopNav.svelte';
 import Bio from '../components/Bio.svelte';
 
 export let article;
-export let slug;
+export let slug = '';
 
 let articlesSubscription;
 
@@ -41,12 +30,14 @@ if (article) {
 }
 
 onMount(async () => {
-  // subscribe to the store to get all articles updates
-  articlesSubscription = articlesStore.subscribe(state => {
-    if (state[slug]) {
-      article = state[slug];
-    }
-  });
+  // subscribe to the store to get article data
+  if (!article) {
+    articlesSubscription = articlesStore.subscribe(state => {
+      if (state[slug]) {
+        article = state[slug];
+      }
+    });
+  }
 });
 
 onDestroy(() => {
@@ -134,7 +125,13 @@ onDestroy(() => {
 </style>
 
 <svelte:head>
-	<title>{article.title}</title>
+  <title>Index Of / {article.title}</title>
+  <meta name="Description" content={article.lead}>
+  {#if article.scripts}
+    {#each article.scripts as script}
+      <script async src={script}></script>
+    {/each}
+  {/if}
 </svelte:head>
 
 <TopNav inner={true}/>

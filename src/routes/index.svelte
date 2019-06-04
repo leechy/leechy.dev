@@ -1,22 +1,17 @@
 <script context="module">
 export async function preload({ params, query }) {
-  return firestore
-    .collection("articles")
-    .get()
-    .then(querySnapshot => {
-      const articles = [];
-      querySnapshot.forEach(doc => {
-        articles.push({...doc.data(), id: doc.id});
-      });
-      articles.sort((a, b) => (a.date > b.date) ? -1 : 1);
-      return { articles };
+  return this.fetch(getFirestoreRequestUrl('articles')).then(res => res.json())
+    .then(res => {
+      return { articles: parseFirestoreResults(res.documents) }
+    }).catch(err => {
+      throw error(err.status, err.message);
     });
 }
 </script>
 
 <script>
 import { onMount, onDestroy } from 'svelte';
-import { firestore } from '../firebase.js';
+import { getFirestoreRequestUrl, parseFirestoreResults } from '../firebase.js';
 import articlesStore from '../articles-store.js';
 
 import { formatDate } from '../utilities.js';
@@ -26,7 +21,6 @@ import Bio from '../components/Bio.svelte';
 
 export let articles;
 
-let firestoreSubscription;
 let articlesSubscription;
 
 // if we have articles from the preload function put them in the store
@@ -35,15 +29,15 @@ if (articles && articles.length) {
 }
 
 onMount(async () => {
-  // subscribe to firestore collection when enter from another page
-  firestoreSubscription = firestore.collection("articles")
-    .onSnapshot(querySnapshot => {
-      const updatedArticles = [];
-      querySnapshot.forEach(doc => {
-        updatedArticles.push({...doc.data(), id: doc.id});
+  if (!articles) {
+    // get all articles from firestore collection
+    fetch(getFirestoreRequestUrl('articles')).then(res => res.json())
+      .then(res => {
+        articlesStore.set(parseFirestoreResults(res.documents));
+      }).catch(err => {
+        throw error(err.status, err.message);
       });
-      articlesStore.set(updatedArticles);
-    });
+  }
 
   // subscribe to the store to get all articles updates
   articlesSubscription = articlesStore.subscribe(state => {
@@ -55,9 +49,6 @@ onMount(async () => {
 
 // unsubscribe from firestore and store on page leave
 onDestroy(() => {
-  if (firestoreSubscription) {
-    firestoreSubscription();
-  }
   if (articlesSubscription) {
     articlesSubscription();
   }
@@ -96,7 +87,7 @@ onDestroy(() => {
   <ol>
     {#each articles as article (article.id)}
       <li>
-        <h3><a href="/{article.id}" rel="prefetch">{article.title}</a></h3>
+        <h3><a href="{article.id.substr(8)}" rel="prefetch">{article.title}</a></h3>
         <p class="date">{formatDate(article.date)}</p>
         <p>{@html article.lead}</p>
       </li>
