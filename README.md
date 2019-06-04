@@ -9,7 +9,9 @@ I can't play at work for now.
 To start a dev server locally or even deploy the code to the hosting, you'll have to add a firebase
 configuration in the `src/firebase-config.js`:
 
-```export default {
+```
+export default {
   apiKey: ...
   ...
-}```
+}
+```
