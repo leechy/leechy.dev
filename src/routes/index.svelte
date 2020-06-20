@@ -64,7 +64,7 @@ onDestroy(() => {
   h3 {
     margin: 1.8rem 0 0.2rem;
     font-size: 1.6rem;
-    line-height: 2.2rem;
+    line-height: 2rem;
     font-weight: 900;
   }
   p {
