@@ -18,7 +18,7 @@
     "firebase": "^6.6.2",
     "firebase-admin": "~7.0.0",
     "firebase-functions": "^2.3.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "polka": "^0.5.2",
     "sirv": "^0.4.6"
   },
